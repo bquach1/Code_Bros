@@ -34,6 +34,12 @@ Ensure you have `npm` installed.
    npm start
    ```
 
+   In order to use the Yelp API functionality, cd to /server and run this command:
+   ```
+   node -r esm cors-proxy-server.js
+   ```
+   to get the server running
+
 ## Code Quality
 
 ESLint rules and prettier configurations are set up for this project.
