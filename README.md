@@ -7,7 +7,7 @@
 - Andrew Nguyen
 - Saehwan Park
 - Reetu Shrestha
-- Andrew
+- My-Linh Tran
 
 ## Getting Started
 
