@@ -3,7 +3,7 @@ import { createServer } from "cors-anywhere";
 // Set up CORS Anywhere's options
 const corsOptions = {
   // Whitelist specific origins (e.g., your React app's origin)
-  originWhitelist: ["http://localhost:3000"],
+  originWhitelist: ["http://localhost:3002"],
 };
 
 // Create the CORS Anywhere server
