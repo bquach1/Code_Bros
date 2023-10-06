@@ -31,7 +31,7 @@ type Restaurant = {
   location: {
     state?: string;
     country?: string;
-    address1?: string;
+    address1: string;
     address2?: string;
     city?: string;
     zip_code?: string;
@@ -144,7 +144,7 @@ const RestaurantList: React.FC = () => {
                 <RestaurantCard
                   imageUrl={restaurant.image_url}
                   name={restaurant.name}
-                  address={restaurant.location.address1!}
+                  address={restaurant.location.address1}
                 />
               </div>
             ))}
