@@ -24,7 +24,7 @@
     "@typescript-eslint/explicit-module-boundary-types": "error",
     "linebreak-style": 0,
     "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off",
+    "react/react-in-jsx-scope": "off"
     // "prettier/prettier": "warn"
   },
   "settings": {
