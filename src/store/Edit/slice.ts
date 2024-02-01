@@ -25,7 +25,7 @@ const slice = createSlice({
       state.selectedResturaunt = undefined;
     },
   },
-  extraReducers: () => {},
+  // extraReducers: () => {},
 });
 
 export const reducer = slice.reducer;

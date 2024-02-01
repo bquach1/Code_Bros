@@ -21,7 +21,7 @@ const ItineraryPopover: React.FC<PopoverProps> = ({
   const [confirmingDelete, setConfirmingDelete] = useState<boolean>(false);
 
   const buildItineraryDate = (): string => {
-    let date: string = "";
+    let date = "";
     date += months[itinerary.month - 1] + " ";
     date += itinerary.day.toString() + ", ";
     date += itinerary.year.toString();

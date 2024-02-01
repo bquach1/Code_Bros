@@ -201,7 +201,7 @@ const slice = createSlice({
       });
     },
   },
-  extraReducers: () => {},
+  // extraReducers: () => {},
 });
 
 export const reducer = slice.reducer;

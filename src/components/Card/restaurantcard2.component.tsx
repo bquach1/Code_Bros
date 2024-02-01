@@ -1,6 +1,5 @@
-
-import React, { useState} from 'react';
-import styles from './restaurantcard2.module.scss'; // Import styles from the module
+import React, { useState } from "react";
+import styles from "./restaurantcard2.module.scss";
 
 type RestaurantCardProps = {
   imageUrl: string;
@@ -21,14 +20,16 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
   return (
     <div
-      className={`${styles['restaurant-card']} ${expanded ? styles['expanded'] : ''}`}
+      className={`${styles["restaurant-card"]} ${
+        expanded ? styles["expanded"] : ""
+      }`}
       onClick={toggleExpanded}
     >
-      <div className={styles['image-container']}>
+      <div className={styles["image-container"]}>
         <img src={imageUrl} alt={name} />
       </div>
       {expanded && (
-        <div className={styles['info-container']}>
+        <div className={styles["info-container"]}>
           <h3>{name}</h3>
           <p>Address: {address}</p>
           {/* <p>Opening Hours: {openingHours}</p> */}
@@ -37,6 +38,5 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
     </div>
   );
 };
-
 
 export default RestaurantCard;
