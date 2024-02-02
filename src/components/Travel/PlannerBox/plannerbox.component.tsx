@@ -248,7 +248,7 @@ const PlannerBox = (): JSX.Element => {
             />
             <select
               className={styles.PlannerInput}
-              placeholder="Choose a meal"
+              placeholder={"Choose a meal"}
               onChange={(e): void => {
                 setCurrentMeal({ ...currentMeal, type: e.target.value });
               }}
