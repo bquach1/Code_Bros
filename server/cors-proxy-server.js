@@ -3,7 +3,7 @@ import { createServer } from "cors-anywhere";
 // Set up CORS Anywhere's options
 const corsOptions = {
   // Whitelist specific origins (e.g., your React app's origin)
-  originWhitelist: ["http://localhost:3002", "https://palatepassport.onrender.com"],
+  originWhitelist: ["http://localhost:3002", "http://localhost:8080", "https://palatepassport.onrender.com"],
 };
 
 // Create the CORS Anywhere server
