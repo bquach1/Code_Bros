@@ -4,13 +4,7 @@
     "node": true,
     "browser": true
   },
-  "extends": [
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "eslint:recommended",
-    "prettier",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended", "prettier"],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",
@@ -25,8 +19,7 @@
     "@typescript-eslint/explicit-module-boundary-types": "error",
     "linebreak-style": 0,
     "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off",
-    "prettier/prettier": "warn"
+    "react/react-in-jsx-scope": "off"
   },
   "settings": {
     "react": {
