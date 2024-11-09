@@ -211,7 +211,7 @@ const PlannerBox = (): JSX.Element => {
           />
         </div>
         <div style={{ marginTop: "1%", marginBottom: "1%" }}>
-          Currently Selected Restaurant: {$selectedRestaurant || "N/A"}
+          Currently Selected Restaurant: {$selectedRestaurant ?? "N/A"}
         </div>
         {addingTime && (
           <form
@@ -309,16 +309,9 @@ export const convertTimeToModern = (time: string): string => {
 
   let hours = parseInt(parts[0], 10);
   const minutes: string = parts[1];
+  const period = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // 12 AM/PM case
 
-  let ampm = "AM";
-  if (hours >= 12) {
-    ampm = "PM";
-    if (hours > 12) {
-      hours -= 12;
-    }
-  } else if (hours === 0) {
-    hours = 12;
-  }
-
-  return `${hours}:${minutes} ${ampm}`;
+  return `${hours}:${minutes} ${period}`;
 };
