@@ -13,7 +13,10 @@ const ItineraryCard: React.FC<CardProps> = ({ itinerary, onClick }) => {
       className={`${styles.card}`}
       onClick={(e): void => {
         e.persist();
-        onClick && onClick();
+        // Explicitly checking if onClick exists before calling
+        if (onClick) {
+          onClick();
+        }
       }}
     >
       <div className={styles.card__content}>
@@ -21,6 +24,7 @@ const ItineraryCard: React.FC<CardProps> = ({ itinerary, onClick }) => {
           {months[itinerary.month - 1] + " " + itinerary.day}
         </h2>
         <p className={styles.card__description}>
+          {/* Explicitly check for nullish values for the title */}
           {itinerary.title ? <h1>{itinerary.title}</h1> : <h1>Itinerary</h1>}
         </p>
       </div>

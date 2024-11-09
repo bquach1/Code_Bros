@@ -1,13 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styles from "./plannerbox.module.scss";
 import ThemeButton from "../../GlobalComponents/ThemeButton/themebutton.component";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addItinerary,
   updateItineraryNamesByDate,
 } from "../../../store/Data/slice";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { v4 as uuidv4 } from "uuid";
 import { itinerary, meal } from "../../../models/itinerary";
 
@@ -17,9 +15,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import CheckIcon from "@mui/icons-material/Check";
 import { Icon, Tooltip } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-import { useSelector } from "react-redux";
-import { AppState } from "../../../store/store";
 import { resetSelectedResturaunt } from "../../../store/Edit/slice";
+import { AppState } from "../../../store/store";
 
 const PlannerBox = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -96,8 +93,9 @@ const PlannerBox = (): JSX.Element => {
   };
 
   useEffect(() => {
-    $selectedRestaurant &&
+    if ($selectedRestaurant) {
       setCurrentMeal({ ...currentMeal, location: $selectedRestaurant });
+    }
   }, [$selectedRestaurant]);
 
   const handleDateChange = (date: Date): void => {
@@ -182,13 +180,8 @@ const PlannerBox = (): JSX.Element => {
 
           {newItinerary && (
             <span className={styles.dateAndTitle}>
-              {newItinerary.title ? newItinerary.title : "Itinerary"} on{" "}
-              {selectedDate.getMonth() +
-                1 +
-                "/" +
-                selectedDate.getDate() +
-                "/" +
-                selectedDate.getFullYear()}
+              {newItinerary.title || "Itinerary"} on{" "}
+              {`${selectedDate.getMonth() + 1}/${selectedDate.getDate()}/${selectedDate.getFullYear()}`}
             </span>
           )}
 
@@ -218,8 +211,7 @@ const PlannerBox = (): JSX.Element => {
           />
         </div>
         <div style={{ marginTop: "1%", marginBottom: "1%" }}>
-          Currently Selected Restaurant:{" "}
-          {$selectedRestaurant ? $selectedRestaurant : "N/A"}
+          Currently Selected Restaurant: {$selectedRestaurant || "N/A"}
         </div>
         {addingTime && (
           <form
@@ -264,7 +256,7 @@ const PlannerBox = (): JSX.Element => {
               disabled={
                 currentMeal.time === "" ||
                 currentMeal.type === "" ||
-                $selectedRestaurant === undefined
+                !$selectedRestaurant
               }
             >
               +
@@ -328,7 +320,5 @@ export const convertTimeToModern = (time: string): string => {
     hours = 12;
   }
 
-  const convertedTimeString = `${hours}:${minutes} ${ampm}`;
-
-  return convertedTimeString;
+  return `${hours}:${minutes} ${ampm}`;
 };

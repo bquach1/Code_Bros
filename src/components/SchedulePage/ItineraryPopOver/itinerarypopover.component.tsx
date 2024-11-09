@@ -47,7 +47,9 @@ const ItineraryPopover: React.FC<PopoverProps> = ({
             if (confirmingDelete) {
               dispatch(deleteItinerary(itinerary.id));
               localStateChanger(null);
-            } else setConfirmingDelete(true);
+            } else {
+              setConfirmingDelete(true);
+            }
           }}
         >
           <Icon>
@@ -61,7 +63,7 @@ const ItineraryPopover: React.FC<PopoverProps> = ({
         onClick={(): void => setConfirmingDelete(false)}
       >
         <div className={styles.dateAndTitleContainer}>
-          <h1>{itinerary.title ? itinerary.title : buildItineraryDate()}</h1>
+          <h1>{itinerary.title ?? buildItineraryDate()}</h1>
           {itinerary.title && (
             <span className={styles.subtitle}>{buildItineraryDate()}</span>
           )}
@@ -73,15 +75,12 @@ const ItineraryPopover: React.FC<PopoverProps> = ({
               const dateB = new Date(`1970-01-01 ${b.time}`);
               return dateA.getTime() - dateB.getTime();
             })
-
             .map((entry, index) => (
               <div key={index} className={styles.mealEntry}>
                 {"- "}
-                {
-                  <span style={{ fontWeight: "bold" }}>
-                    {convertTimeToModern(entry.time)} |
-                  </span>
-                }{" "}
+                <span style={{ fontWeight: "bold" }}>
+                  {convertTimeToModern(entry.time)} |
+                </span>{" "}
                 {entry.type} at{" "}
                 <span style={{ fontStyle: "italic" }}>{entry.location}</span>
               </div>

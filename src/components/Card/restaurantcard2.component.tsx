@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styles from "./restaurantcard2.module.scss";
 
-type RestaurantCardProps = {
+interface RestaurantCardProps {
   imageUrl: string;
   name: string;
   address: string;
-};
+}
 
 const RestaurantCard: React.FC<RestaurantCardProps> = ({
   imageUrl,
@@ -21,7 +21,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({
   return (
     <div
       className={`${styles["restaurant-card"]} ${
-        expanded ? styles["expanded"] : ""
+        expanded ? styles.expanded : ""
       }`}
       onClick={toggleExpanded}
     >

@@ -29,15 +29,23 @@ const SchedulePage = (): JSX.Element => {
   };
 
   const groupedItineraries: itinerary[][] = useMemo(() => {
-    const groups: { [key: string]: itinerary[] } = {};
+    const groups: Record<string, itinerary[]> = {};
 
     const sortedItineraries = [...$itineraries]
       .filter((itinerary) => {
-        if (yearFilter && Number(yearFilter) !== itinerary.year) {
+        if (
+          yearFilter &&
+          yearFilter !== "" &&
+          Number(yearFilter) !== itinerary.year
+        ) {
           return false;
         }
 
-        if (monthFilter && months[itinerary.month - 1] !== monthFilter) {
+        if (
+          monthFilter &&
+          monthFilter !== "" &&
+          months[itinerary.month - 1] !== monthFilter
+        ) {
           return false;
         }
 
@@ -65,10 +73,12 @@ const SchedulePage = (): JSX.Element => {
     <Fragment>
       <div
         className={`${styles.Schedule} ${styles[visibility.current]} ${
-          selectedItinerary && styles.dim
+          selectedItinerary !== null ? styles.dim : ""
         }`}
         onClick={(): void => {
-          selectedItinerary && setSelectedItinerary(null);
+          if (selectedItinerary !== null) {
+            setSelectedItinerary(null);
+          }
         }}
       >
         <div className={styles.scheduleTopBar}>
@@ -142,7 +152,7 @@ const SchedulePage = (): JSX.Element => {
             );
           })}
         </div>
-        {selectedItinerary && (
+        {selectedItinerary !== null && (
           <ItineraryPopover
             itinerary={selectedItinerary}
             localStateChanger={setSelectedItinerary}

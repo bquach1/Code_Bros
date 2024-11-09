@@ -24,7 +24,9 @@ const Home = (): JSX.Element => {
       dispatch(setStarted(true));
     }, 500);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+    };
   };
 
   useEffect(() => {

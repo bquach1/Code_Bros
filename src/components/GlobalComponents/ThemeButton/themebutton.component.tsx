@@ -18,8 +18,8 @@ const ThemeButton = ({
         buttonType === "delete"
           ? styles.cancelButton
           : buttonType === "choose"
-          ? styles.chooseButton
-          : styles.themeButton
+            ? styles.chooseButton
+            : styles.themeButton
       }
       onClick={onClick}
     >

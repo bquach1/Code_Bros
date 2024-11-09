@@ -19,6 +19,7 @@ const TopBar = (): JSX.Element => {
     dispatch(setStarted(false));
     navigate("/");
   };
+
   const onScheduleButton = (): void => {
     navigate("/schedule");
   };
@@ -35,8 +36,12 @@ const TopBar = (): JSX.Element => {
           <img
             src={isHovered ? ScheduleDarkLogo : ScheduleLogo}
             className={styles.simpleScheduleLogo}
-            onMouseEnter={(): void => setIsHovered(true)}
-            onMouseLeave={(): void => setIsHovered(false)}
+            onMouseEnter={(): void => {
+              setIsHovered(true);
+            }}
+            onMouseLeave={(): void => {
+              setIsHovered(false);
+            }}
             onClick={(e): void => {
               e.persist();
               onScheduleButton();

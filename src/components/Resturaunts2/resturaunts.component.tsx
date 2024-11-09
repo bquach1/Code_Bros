@@ -6,9 +6,8 @@ import {
   resetSelectedResturaunt,
 } from "../../store/Edit/slice";
 import styles from "./resturaunts.module.scss"; // Adjust the import path
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../store/store";
-import { useSelector } from "react-redux";
 import ThemeButton from "../GlobalComponents/ThemeButton/themebutton.component";
 
 // Define the initial Yelp API request options without the location
@@ -25,7 +24,7 @@ const initialYelpOptions = {
   },
 };
 
-type Restaurant = {
+interface Restaurant {
   id: string;
   name: string;
   location: {
@@ -37,7 +36,7 @@ type Restaurant = {
     zip_code?: string;
   };
   image_url: string;
-};
+}
 
 const RestaurantList: React.FC = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -61,7 +60,7 @@ const RestaurantList: React.FC = () => {
 
   useEffect(() => {
     console.log($selectedRestaurant);
-  });
+  }, [$selectedRestaurant]);
 
   const handlePickRestaurant = (name: string): void => {
     dispatch(setSelectedResturaunt(name));
@@ -96,9 +95,11 @@ const RestaurantList: React.FC = () => {
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleFormSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     e.preventDefault(); // Prevent the form from submitting and reloading the page
-    fetchRestaurants(); // Call the API after the form is submitted
+    await fetchRestaurants(); // Call the API after the form is submitted
   };
 
   return (
@@ -113,7 +114,7 @@ const RestaurantList: React.FC = () => {
         />
         <button type="submit">Search</button>
       </form>
-      {selectedRestaurantId.length ? (
+      {selectedRestaurantId.length > 0 ? (
         <button onClick={(): void => setSelectedRestaurantId("")}>
           Return to List
         </button>
@@ -128,8 +129,8 @@ const RestaurantList: React.FC = () => {
         <div className={styles["restaurant-list-container"]}>
           {restaurants
             .filter((restaurant) =>
-              !selectedRestaurantId.length
-                ? restaurant
+              selectedRestaurantId.length === 0
+                ? true
                 : restaurant.id === selectedRestaurantId,
             )
             .map((restaurant) => (
@@ -148,7 +149,7 @@ const RestaurantList: React.FC = () => {
                 />
               </div>
             ))}
-          {selectedRestaurantId.length ? (
+          {selectedRestaurantId.length > 0 ? (
             <div
               style={{
                 display: "flex",
@@ -168,7 +169,7 @@ const RestaurantList: React.FC = () => {
                 text={"Cancel"}
                 onClick={(): void => {
                   setSelectedRestaurantId("");
-                  resetSelectedResturaunt;
+                  dispatch(resetSelectedResturaunt());
                 }}
                 buttonType={"delete"}
               />
