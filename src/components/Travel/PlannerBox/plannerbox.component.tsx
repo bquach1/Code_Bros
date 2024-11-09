@@ -93,7 +93,7 @@ const PlannerBox = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if ($selectedRestaurant) {
+    if ($selectedRestaurant != null && $selectedRestaurant !== "") {
       setCurrentMeal({ ...currentMeal, location: $selectedRestaurant });
     }
   }, [$selectedRestaurant]);
@@ -105,7 +105,8 @@ const PlannerBox = (): JSX.Element => {
 
   useEffect(() => {
     if (
-      !$selectedRestaurant ||
+      $selectedRestaurant === null ||
+      $selectedRestaurant === "" ||
       currentMeal.time === "" ||
       currentMeal.type === ""
     )
@@ -150,7 +151,9 @@ const PlannerBox = (): JSX.Element => {
           {editingDate && (
             <Calendar
               value={selectedDate}
-              onChange={(e): void => handleDateChange(e as Date)}
+              onChange={(e): void => {
+                handleDateChange(e as Date);
+              }}
             />
           )}
         </div>
@@ -178,9 +181,9 @@ const PlannerBox = (): JSX.Element => {
             />
           </Tooltip>
 
-          {newItinerary && (
+          {newItinerary?.title && (
             <span className={styles.dateAndTitle}>
-              {newItinerary.title || "Itinerary"} on{" "}
+              {newItinerary.title !== null ?? "Itinerary"} on{" "}
               {`${selectedDate.getMonth() + 1}/${selectedDate.getDate()}/${selectedDate.getFullYear()}`}
             </span>
           )}
