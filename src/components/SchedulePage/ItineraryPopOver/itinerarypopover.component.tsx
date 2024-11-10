@@ -60,11 +60,13 @@ const ItineraryPopover: React.FC<PopoverProps> = ({
       </div>
       <div
         className={styles.popover}
-        onClick={(): void => setConfirmingDelete(false)}
+        onClick={(): void => {
+          setConfirmingDelete(false);
+        }}
       >
         <div className={styles.dateAndTitleContainer}>
           <h1>{itinerary.title ?? buildItineraryDate()}</h1>
-          {itinerary.title && (
+          {itinerary.title !== null && itinerary.title !== "" && (
             <span className={styles.subtitle}>{buildItineraryDate()}</span>
           )}
         </div>

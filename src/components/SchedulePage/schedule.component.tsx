@@ -52,7 +52,7 @@ const SchedulePage = (): JSX.Element => {
 
     sortedItineraries.forEach((itineraryItem) => {
       const key = `${itineraryItem.month}-${itineraryItem.year}`;
-      if (!groups[key]) {
+      if (groups[key] === undefined) {
         groups[key] = [];
       }
       groups[key].push(itineraryItem);
