@@ -181,7 +181,7 @@ const PlannerBox = (): JSX.Element => {
             />
           </Tooltip>
 
-          {newItinerary?.title && (
+          {newItinerary?.title !== null && (
             <span className={styles.dateAndTitle}>
               {newItinerary.title !== null ?? "Itinerary"} on{" "}
               {`${selectedDate.getMonth() + 1}/${selectedDate.getDate()}/${selectedDate.getFullYear()}`}
@@ -259,7 +259,8 @@ const PlannerBox = (): JSX.Element => {
               disabled={
                 currentMeal.time === "" ||
                 currentMeal.type === "" ||
-                !$selectedRestaurant
+                $selectedRestaurant === null ||
+                $selectedRestaurant === ""
               }
             >
               +
@@ -280,26 +281,31 @@ const PlannerBox = (): JSX.Element => {
                 <Icon>
                   <Delete
                     className={styles.icon}
-                    onClick={(): void =>
+                    onClick={(): void => {
                       setNewItinerary({
                         ...newItinerary,
                         meals: newItinerary.meals.filter(
                           (meal) => meal.id !== entry.id,
                         ),
-                      })
-                    }
+                      });
+                    }}
                   />
                 </Icon>
               </div>
             ))}
         </div>
-        {newItinerary.meals.length > 0 && newItinerary.day && (
-          <ThemeButton
-            text={"Save Itinerary"}
-            onClick={(): void => handleFinishItinerary()}
-            buttonType={"normal"}
-          />
-        )}
+        {Array.isArray(newItinerary.meals) &&
+          !isNaN(newItinerary.meals.length) &&
+          newItinerary.meals.length > 0 &&
+          newItinerary.day !== null && (
+            <ThemeButton
+              text={"Save Itinerary"}
+              onClick={(): void => {
+                handleFinishItinerary();
+              }}
+              buttonType={"normal"}
+            />
+          )}
       </div>
     </Fragment>
   );
@@ -312,9 +318,9 @@ export const convertTimeToModern = (time: string): string => {
 
   let hours = parseInt(parts[0], 10);
   const minutes: string = parts[1];
-  const period = hours >= 12 ? "PM" : "AM";
+  const period = !isNaN(hours) && hours >= 12 ? "PM" : "AM";
   hours = hours % 12;
-  hours = hours ? hours : 12; // 12 AM/PM case
+  hours = hours || 12; // 12 AM/PM case
 
   return `${hours}:${minutes} ${period}`;
 };
