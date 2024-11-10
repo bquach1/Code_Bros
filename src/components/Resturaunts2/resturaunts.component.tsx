@@ -71,7 +71,7 @@ const RestaurantList: React.FC = () => {
       // Make the Yelp API request
       const response = await axios.request(yelpOptions);
 
-      if (response.data.businesses) {
+      if (response.data.businesses != null) {
         const restaurantData: Restaurant[] = response.data.businesses.map(
           (business: Restaurant) => ({
             id: business.id,
@@ -105,17 +105,31 @@ const RestaurantList: React.FC = () => {
   return (
     <div className={styles["parent-div"]}>
       <div className={styles["form-holder"]}></div>
-      <form style={{ width: 420 }} onSubmit={handleFormSubmit}>
+      <form
+        style={{ width: 420 }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleFormSubmit(e).catch((error) => {
+            console.error("Form submission failed:", error);
+          });
+        }}
+      >
         <input
           type="text"
           placeholder="Enter location as City, State (Abbreviation)"
           value={location}
-          onChange={(e): void => setLocation(e.target.value)}
+          onChange={(e): void => {
+            setLocation(e.target.value);
+          }}
         />
         <button type="submit">Search</button>
       </form>
       {selectedRestaurantId.length > 0 ? (
-        <button onClick={(): void => setSelectedRestaurantId("")}>
+        <button
+          onClick={(): void => {
+            setSelectedRestaurantId("");
+          }}
+        >
           Return to List
         </button>
       ) : null}
@@ -160,9 +174,9 @@ const RestaurantList: React.FC = () => {
             >
               <ThemeButton
                 text={"Choose"}
-                onClick={(): void =>
-                  handlePickRestaurant(selectedRestaurantName)
-                }
+                onClick={(): void => {
+                  handlePickRestaurant(selectedRestaurantName);
+                }}
                 buttonType={"choose"}
               />
               <ThemeButton
