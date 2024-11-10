@@ -13,7 +13,7 @@ import ThemeButton from "../GlobalComponents/ThemeButton/themebutton.component";
 // Define the initial Yelp API request options without the location
 const initialYelpOptions = {
   method: "GET",
-  url: "https://palatepassport.onrender.com/https://api.yelp.com/v3/businesses/search",
+  url: "https://palate-passport-backend.onrender.com/https://api.yelp.com/v3/businesses/search",
   params: {
     term: "restaurants",
     limit: 45,
