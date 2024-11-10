@@ -320,7 +320,7 @@ export const convertTimeToModern = (time: string): string => {
   const minutes: string = parts[1];
   const period = !isNaN(hours) && hours >= 12 ? "PM" : "AM";
   hours = hours % 12;
-  hours = hours || 12; // 12 AM/PM case
+  hours = hours ?? 12; // 12 AM/PM case
 
   return `${hours}:${minutes} ${period}`;
 };

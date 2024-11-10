@@ -33,19 +33,11 @@ const SchedulePage = (): JSX.Element => {
 
     const sortedItineraries = [...$itineraries]
       .filter((itinerary) => {
-        if (
-          yearFilter &&
-          yearFilter !== "" &&
-          Number(yearFilter) !== itinerary.year
-        ) {
+        if (yearFilter !== "" && Number(yearFilter) !== itinerary.year) {
           return false;
         }
 
-        if (
-          monthFilter &&
-          monthFilter !== "" &&
-          months[itinerary.month - 1] !== monthFilter
-        ) {
+        if (monthFilter !== "" && months[itinerary.month - 1] !== monthFilter) {
           return false;
         }
 
@@ -86,8 +78,12 @@ const SchedulePage = (): JSX.Element => {
             className={styles.backIcon}
             src={isBackHovered ? BackIconDark : BackIcon}
             onClick={onBack}
-            onMouseEnter={(): void => setIsBackHovered(true)}
-            onMouseLeave={(): void => setIsBackHovered(false)}
+            onMouseEnter={(): void => {
+              setIsBackHovered(true);
+            }}
+            onMouseLeave={(): void => {
+              setIsBackHovered(false);
+            }}
           />
           <h1 className={styles.title}>Itineraries</h1>
           <div className={styles.filtersContainer}>
